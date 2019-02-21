@@ -1,0 +1,58 @@
+{
+  "name": "code-playground",
+  "version": "0.0.1",
+  "description": "A first place where the code was written",
+  "main": "main.js",
+  "scripts": {
+    "dev": "ELECTRON_START_URL=http://localhost:2044 yarn electron",
+    "start": "./node_modules/.bin/parcel index.html -p 2044",
+    "parcel": "./node_modules/.bin/parcel build --no-cache --no-source-maps --public-url=. index.html",
+    "build": "rm -rf dist release .cache && yarn parcel",
+    "dist": "electron-builder --mac",
+    "electron": "electron .",
+    "release": "yarn build && yarn dist"
+  },
+  "build": {
+    "productName": "Code Playground",
+    "extends": null,
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.js",
+      "src/*.js",
+      "donation.html",
+      "webview.html",
+      "dist/**",
+      "img/**",
+      "package.json",
+      "node_modules/@babel",
+      "node_modules/sass"
+    ]
+  },
+  "keywords": [],
+  "babel": {
+    "plugins": [
+      "@babel/plugin-proposal-class-properties"
+    ]
+  },
+  "devDependencies": {
+    "@emmetio/codemirror-plugin": "^0.5.4",
+    "codemirror": "^5.42.2",
+    "electron": "^4.0.0",
+    "electron-builder": "^20.38.5",
+    "parcel-bundler": "^1.11.0",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-split": "^2.0.4",
+    "react-splitter-layout": "^3.0.1",
+    "sublime-command-palette": "^0.0.11"
+  },
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/plugin-transform-arrow-functions": "^7.2.0",
+    "@babel/plugin-transform-classes": "^7.2.2",
+    "sass": "^1.15.2"
+  }
+}

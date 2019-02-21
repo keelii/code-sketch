@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Code Sketch</title>
+
+    <!-- <script src="https://ternjs.net/lib/tern.js"></script> -->
+    <!-- <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
+
+</head>
+<body>
+    <script>
+        function getParamFromURL(url) {
+            url = url || location.href
+
+            let result = {}
+            let search = url.substr(url.indexOf('?') + 1)
+
+            if (search) {
+                var params = search.split('&')
+                for (var i = 0; i < params.length; i++) {
+                    var p = params[i]
+                    if (p.indexOf('=') > -1) {
+                        var keyValue = p.split('=')
+                        result[keyValue[0]] = keyValue[1]
+                    }
+                }
+            } else {
+                throw new Error('url should contains one param.')
+            }
+            return result
+        }
+        window._query = getParamFromURL(window.location.href)
+
+        let pref = localStorage.getItem('PW_preference')
+        let prefAppTheme = pref ? JSON.parse(pref).app_theme : _query.theme || 'light'
+        document.body.classList.add(prefAppTheme)
+    </script>
+    <div id="app"></div>
+  
+    <script src="./src/index.js"></script>
+</body>
+</html>
