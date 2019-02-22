@@ -51,6 +51,7 @@ import defaultValue from './default'
 const sass = require('sass')
 
 import emmetSnippet from './emmet'
+import {Logger} from './Logger'
 
 // import '../img/donate-alipay.png'
 // import '../img/donate-wechat.png'
@@ -114,7 +115,7 @@ class Editor extends Component {
             }
         })
         this.editor.on('change', () => {
-            this.props.contentUpdate()
+            this.props.contentUpdate(this.props.name)
             window.localStorage.setItem(this.props.name, this.editor.getValue())
         })
         this.editor.on('keyup', (cm, event) => {
@@ -155,6 +156,20 @@ class Editor extends Component {
     }
 }
 
+class Log extends Component {
+    constructor(props) {
+        super()
+    }
+    render() {
+        return (
+            <ul id="Logger" className="logs"></ul>
+        )
+    }
+    shouldComponentUpdate() {
+        return false
+    }
+}
+
 class App extends Component {
     static defaultProps = {
         fontSize: 14
@@ -179,6 +194,7 @@ class App extends Component {
         this.state = {
             zenMode: true,
             fontSize: 14,
+            autoReload: true,
             activeEditor: { ...editors[0] },
             activeResult: { ...results[0] },
             logs: [],
@@ -189,14 +205,15 @@ class App extends Component {
     render() {
         const { name, title } = this.state.activeEditor
         const activeResult = this.state.activeResult
+        const autoReload = this.state.autoReload
 
         return [
             <style key="style" key={'style'}>{`
                 body { --editor-font-size: ${this.state.fontSize}px; }
             `}</style>,
-            <Split key="body" className="container" 
-                gutterSize={5} 
-                onDragEnd={this.handleDragGutter.bind(this)} 
+            <Split key="body" className="container"
+                gutterSize={5}
+                onDragEnd={this.handleDragGutter.bind(this)}
                 minSize={0}
                 sizes={this.state.sizes}
             >
@@ -204,22 +221,28 @@ class App extends Component {
                     <SplitPanelHead className={'btns ' + (this.state.zenMode ? '':'toggle')}>
                         <div className="title">
                             <ul className="tabs">
-                                {this.state.editors.map((e, idx) => 
-                                    <li onClick={(evt) => this.setActiveEditor(e, evt)} 
+                                {this.state.editors.map((e, idx) =>
+                                    <li onClick={(evt) => this.setActiveEditor(e, evt)}
                                         key={e.name}
-                                        className={name===e.name?'active':''} 
+                                        className={name===e.name?'active':''}
                                         title={e.title}><span>{idx+1}</span>{titleCase(e.name)}</li>
                                 )}
                             </ul>
                         </div>
                         <SplitPanelAction>
-                            <label for={`auto-reload-${name}`}> <input type="checkbox" id={`auto-reload-${name}`} /> Auto Reload</label>
+                            {/*
+                            <label htmlFor={`auto-reload-${name}`}>
+                            <input type="checkbox"
+                                onChange={(e) => this.setState({autoReload: e.target.checked})}
+                                defaultChecked={autoReload}
+                                id={`auto-reload-${name}`} /> Auto Reload</label>
+                            */}
                         </SplitPanelAction>
                     </SplitPanelHead>
                     <SplitPanelContent>
                         {this.state.editors.map(e =>
                             <div className="panel-wrap" key={e.name} style={{display:name === e.name?'block':'none'}}>
-                                <Editor {...e} key={e.name} 
+                                <Editor {...e} key={e.name}
                                     active={name === e.name}
                                     onDrop={this.onDrop.bind(this)}
                                     zenMode={this.state.zenMode}
@@ -233,10 +256,10 @@ class App extends Component {
                     <SplitPanelHead className={'btns ' + (this.state.zenMode ? '':'toggle')}>
                         <div className="title">
                             <ul className="tabs">
-                                {this.state.results.map((e, idx) => 
-                                    <li onClick={() => this.setActiveResult(e)} 
+                                {this.state.results.map((e, idx) =>
+                                    <li onClick={() => this.setActiveResult(e)}
                                         key={e.name}
-                                        className={activeResult.name===e.name?'active':''} 
+                                        className={activeResult.name===e.name?'active':''}
                                         title={e.title}><span>{idx+4}</span>{titleCase(e.name)}</li>
                                 )}
                             </ul>
@@ -249,20 +272,18 @@ class App extends Component {
                             <iframe src={this.getWebViewUrl()} frameBorder="0" id="webview"></iframe>
                         </div>
                         <div className="panel-wrap" style={{display:activeResult.name === 'console'?'flex':'none'}}>
-                            <ul className="logs">
-                                {this.state.logs.map((log, idx) => <li key={idx}><pre>{log}</pre></li>)}
-                            </ul>
+                            <Log />
                         </div>
                     </SplitPanelContent>
                 </SplitPanel>
             </Split>,
-            <CommandPalette step={0} 
+            <CommandPalette step={0}
                 key="CommandPalette"
                 async={injectData}
                 done={this.done.bind(this)}
                 alias={alias}
                 aliasClick={this.aliasClick.bind(this)}
-                data={[ [], [], [] ]} 
+                data={[ [], [], [] ]}
             />
         ]
     }
@@ -273,20 +294,22 @@ class App extends Component {
         this.setActiveEditor(this.state.editors.find(d => d.name === name))
     }
     setActiveEditor(editor, e) {
-        let activeResult = { ...this.state.results[0] }
-        if (e && e.metaKey) {
-            if (editor.name === 'markup') {
-                activeResult = { ...this.state.results[0] }
+        if (editor.name !== this.state.activeEditor.name) {
+            let activeResult = { ...this.state.results[0] }
+            if (e && e.metaKey) {
+                if (editor.name === 'markup') {
+                    activeResult = { ...this.state.results[0] }
+                }
+                if (editor.name === 'script') {
+                    activeResult = { ...this.state.results[1] }
+                }
             }
-            if (editor.name === 'script') {
-                activeResult = { ...this.state.results[1] }
-            }
-        }
 
-        this.setState({
-            activeEditor: {...editor},
-            activeResult
-        })
+            this.setState({
+                activeEditor: {...editor},
+                activeResult
+            })
+        }
     }
     setActiveResult(result) {
         this.setState({ activeResult: {...result} })
@@ -306,7 +329,7 @@ class App extends Component {
     }
     done(res) {
         const [name, version, file] = res.map(r => r.id)
-        
+
         const url = `https://cdn.bootcss.com/${name}/${version}/${file}`
         const style = `<link rel="stylesheet" href="${url}" />\n`
         const script = `<script src="${url}"></script>\n`
@@ -365,11 +388,11 @@ class App extends Component {
             let res = {}
 
             try {
-                res = sass.renderSync({ data, outputStyle: 'compressed' })    
+                res = sass.renderSync({ data, outputStyle: 'compressed' })
             } catch (err) {
                 res.css = data
             }
-            
+
             html = insertStyle(html, res.css)
         }
         if (window.editor_script) {
@@ -380,6 +403,9 @@ class App extends Component {
         if (true) {
             html = insertBabel(html)
         }
+
+        this.logger.clear()
+
         let doc = this._wv.contentDocument
         if (doc.open) {
             doc.open()
@@ -395,12 +421,12 @@ class App extends Component {
         //     if (res) console.log(res)
         // })
     }
-
-    processUpdate() {
-        // clearTimeout(this.timer)
-        // this.timer = setTimeout(this.update.bind(this), 500)
+    processUpdate(name) {
+        // if (name !== 'script' && this.state.autoReload) {
+        //     clearTimeout(this.timer)
+        //     this.timer = setTimeout(this.update.bind(this), 200)
+        // }
     }
-
     equalGutterWidth() {
         this.setState({
             sizes: [50, 50]
@@ -436,7 +462,7 @@ class App extends Component {
                     this.setActiveResult(result)
                 }
             })
-            
+
             if (e.key === 'e') {
                 this.stopPrevent(e)
                 this.toggleZenMode()
@@ -469,7 +495,7 @@ class App extends Component {
             }
         }
     }
-    saveDialog() {        
+    saveDialog() {
         const {dialog} = window.require('electron').remote
         const defaultPath = this.HOME_PATH + '/Desktop/unname.html'
 
@@ -532,16 +558,6 @@ class App extends Component {
         e.stopPropagation()
         e.preventDefault()
     }
-    bindMessageEvent() {
-        window.log = (...args) => {
-            let logs = [...this.state.logs]
-            if (this.state.logs > 100) {
-                logs = logs.slice(0, 100)
-            }
-            logs.unshift(...args)
-            // this.setState({ logs })
-        }
-    }
     get ipc() {
         if (window.require) {
             return window.require('electron').ipcRenderer
@@ -555,7 +571,6 @@ class App extends Component {
     }
     alert(event, msg) {
         console.log(msg)
-        // alert(msg)
     }
     handleChangeTheme(event, s) {
         document.body.classList.remove('dark')
@@ -579,13 +594,16 @@ class App extends Component {
     componentDidMount() {
         this.listenIPC()
         this.bindKeyMap()
-        this.bindMessageEvent()
 
         this.initWebview()
 
         setTimeout(() => {
             this.update()
         }, 500)
+
+        this.logger = window.logger = new Logger(
+            document.querySelector('#Logger')
+        )
     }
 }
 export default App

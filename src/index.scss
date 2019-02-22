@@ -2,9 +2,9 @@
 @import './theme/cp-light.css';
 
 * { margin: 0; padding: 0; }
-html, body { 
-  height: 100%; 
-  overflow: hidden; 
+html, body {
+  height: 100%;
+  overflow: hidden;
 }
 body {
   box-sizing: border-box;
@@ -75,7 +75,7 @@ body {
 .toolbar {
   display: none;
   // background: #f00;
-  min-height: 30px; 
+  min-height: 30px;
 }
 .container {
   position: relative;
@@ -107,17 +107,6 @@ body {
         }
         .CodeMirror {
           min-height: calc(100vh - 30px)
-        }
-      }
-      .logs {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-        padding: 10px 0;
-        li {
-          font-size: 12px;
-          padding: 2px 10px;
-          border-bottom: 1px solid #eee;
         }
       }
     }
@@ -194,7 +183,7 @@ body {
       width: 14px;
       height: 14px;
       margin: 0;
-      background-color: #fff;            
+      background-color: #fff;
       border: 1px solid #c9c9c9;
       border-radius: 2px;
       color: #fff;
@@ -207,7 +196,7 @@ body {
       -o-appearance:none;
       appearance:none;
       outline: none;
-      
+
       &:hover { border-color: #43adea; }
       &:checked {
           color: #fff;
@@ -215,7 +204,7 @@ body {
           border: 1px solid #43adea;
       }
       &:after { content: "✔"; }
-    }    
+    }
   }
   .gutter {
     z-index: 1;
@@ -225,4 +214,41 @@ body {
     background: var(--gutter-bg);
     // background: linear-gradient(to right, var(--gutter-bg) 0%,var(--gutter-bg) 100%);
   }
+}
+
+.logs {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 10px 0;
+    font: 14px var(--global-code-font);
+    li {
+        font-size: 12px;
+        padding: 2px 14px;
+        list-style: none;
+        line-height: 18px;
+    }
+    > li {
+        border-bottom: 1px solid #eee;
+    }
+    a { text-decoration: none; color: #666; }
+    ul>li:last-child { border: none }
+    ins {
+        font-size: 12px;
+        display: inline-block;
+        width:14px;
+        height: 18px;
+        overflow:hidden;
+        vertical-align: middle;
+        user-select: none;
+        text-decoration: none;
+    }
+    ul { display: none; }
+
+    .key.fn { font-style: italic; color: #8959a8; }
+    .len { color: #999; font-style: normal; user-select: none; }
+    .type-string { color: green }
+    .type-number { color: blue }
+    .type-boolean { color: blue }
+    .type-null, .type-undefined { color: gray }
 }

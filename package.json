@@ -1,5 +1,5 @@
 {
-  "name": "code-playground",
+  "name": "code-sketch",
   "version": "0.0.1",
   "description": "A first place where the code was written",
   "main": "main.js",
@@ -13,7 +13,7 @@
     "release": "yarn build && yarn dist"
   },
   "build": {
-    "productName": "Code Playground",
+    "productName": "Code Sketch",
     "extends": null,
     "directories": {
       "output": "release"
