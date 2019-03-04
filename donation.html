@@ -43,9 +43,9 @@
     <script>
         function changeTo(type) {
             document.querySelectorAll('.donate-img img').forEach(img => img.style.display = 'none')
-            document.querySelector('#'+ script +'-img').style.display = 'inline'
+            document.querySelector('#'+ type +'-img').style.display = 'inline'
             document.querySelectorAll('.donate-img dt span').forEach(span => span.classList.remove('curr'))
-            document.querySelector('.'+ script +'-btn').classList.add('curr')
+            document.querySelector('.'+ type +'-btn').classList.add('curr')
         }
     </script>
     <dl class="donate-img">

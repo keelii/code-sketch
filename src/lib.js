@@ -51,9 +51,8 @@ function removeHooks(html, type) {
 }
 exports.removeHooks = removeHooks
 
-function insertBabel(html) {
-    const src = 'https://cdn.bootcss.com/babel-standalone/7.0.0-beta.3/babel.min.js'
-    const babeljs = '<script src="'+ src +'"></script>'
+function insertBabel(html, content) {
+    const babeljs = `<script>${content}</script>`
     const customeJS = `
     <script name="console-proxy">
         (function(root) {
@@ -83,9 +82,7 @@ function insertBabel(html) {
         })(this);
     </script>
     `
-    return html.includes(src)
-        ? html
-        : html.replace('</head>', `${babeljs}${customeJS}</head>`)
+    return html.replace('</head>', `${customeJS}${babeljs}</head>`)
 }
 exports.insertBabel = insertBabel
 

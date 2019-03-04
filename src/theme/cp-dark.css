@@ -28,3 +28,37 @@
 
 .cm-s-cp-dark .CodeMirror-activeline-background { background: #343600; }
 .cm-s-cp-dark .CodeMirror-matchingbracket { text-decoration: underline; color: white !important; }
+
+.CodeMirror-hints {
+    position: absolute;
+    z-index: 10;
+    overflow: hidden;
+    list-style: none;
+  
+    margin: 0;
+  
+    box-shadow: 2px 3px 30px rgb(212, 211, 211, 0.8);
+    border: 1px solid #666;
+    border-radius: 2px;
+  
+    background: #3b3c3c;
+    font-size: 90%;
+    font-family: inherit;
+  
+    max-height: 20em;
+    overflow-y: auto;
+  }
+  
+  .CodeMirror-hint {
+    margin: 0;
+    padding: 5px 10px;
+    white-space: pre;
+    color: #ccc;
+    cursor: pointer;
+  }
+  
+  li.CodeMirror-hint-active {
+    background: #cecece;
+    /* color: white; */
+  }
+  

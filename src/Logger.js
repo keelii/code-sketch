@@ -54,14 +54,15 @@ export class Logger {
 
         this.render()
     }
-    error() {
+    error({msg, url, row, col, err}) {
         this.type = 'error'
-        let args = Array.prototype.slice.call(arguments)
-        if (args.length <= 1) {
-            this.visit(args[0])
-        } else {
-            this.visit(args)
-        }
+        // let args = Array.prototype.slice.call(arguments)
+        // if (args.length <= 1) {
+        //     this.visit(args[0])
+        // } else {
+        //     this.visit(args)
+        // }
+        this.addResult(`<pre>${msg}</pre>`)
         this.render()
     }
     clear() {
@@ -81,7 +82,7 @@ export class Logger {
             this.renderObject(o)
         }
     }
-    valueToDOM(o) {
+    valueToDOM(o, tag = 'span') {
         const t = type(o)
 
         const matchFnParams = str => {
@@ -95,16 +96,15 @@ export class Logger {
                  .replace(/>/g, "&gt;")
                  .replace(/"/g, "&quot;")
                  .replace(/'/g, "&#039;");
-         }
-
+        }
         const str = t === 'String'
-            ? `"${escapeHtml(o)}"`
+            ? `"${escapeHtml(o.replace(/\n/g, '↵'))}"`
             : t === 'Function'
-                ? `<span title="${o.toString()}">
+                ? `<${tag} title="${o.toString()}">
                     ${this.keyToDOM('f')} ${escapeHtml(o.name+matchFnParams(o.toString()))}
-                </span>`
+                </${tag}>`
                 : o
-        return `<span class="value type-${t.toLowerCase()}">${str}</span>`
+        return `<${tag} class="value type-${t.toLowerCase()}">${str}</${tag}>`
     }
     keyToDOM(key) {
         return `<span class="key ${key === 'f' ? 'fn':''}">${key}</span>`

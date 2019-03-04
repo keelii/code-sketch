@@ -6,7 +6,6 @@
 
     <!-- <script src="https://ternjs.net/lib/tern.js"></script> -->
     <!-- <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script> -->
-
 </head>
 <body>
     <script>
@@ -32,9 +31,7 @@
         }
         window._query = getParamFromURL(window.location.href)
 
-        let pref = localStorage.getItem('PW_preference')
-        let prefAppTheme = pref ? JSON.parse(pref).app_theme : _query.theme || 'light'
-        document.body.classList.add(prefAppTheme)
+        document.body.classList.add(_query.theme || 'light')
     </script>
     <div id="app"></div>
   

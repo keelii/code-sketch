@@ -175,7 +175,9 @@ function createWindow({ width = 1000, height = 600, x, y}, callback) {
     const osTheme = getSystemTheme()
 
     // Create the browser window.
-    mainWindow = new BrowserWindow({ width, height, x, y })
+    mainWindow = new BrowserWindow({ 
+        width, height, x, y
+    })
 
     const query = {
         theme: osTheme,
@@ -255,7 +257,7 @@ function parseFile(event, filename) {
         const style = removeHook(matchContent(content, 'style', true), 'style')
         const script = removeHook(matchContent(content, 'script'), 'script')
     
-        return [markup, style, script]        
+        return [markup, style, script]
     } catch (e) {
         event.sender.send('ON_ALERT', `Error to load file. ${e}`)
     }

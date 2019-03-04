@@ -99,12 +99,9 @@ body {
       overflow-x: hidden;
       overflow-y: auto;
       .panel-wrap {
-        background: #fff;
+        background: var(--top-bar-active-tag-bg);
         overflow-y: scroll;
         flex-grow: 1;
-        > div {
-          // flex-grow: 1;
-        }
         .CodeMirror {
           min-height: calc(100vh - 30px)
         }
@@ -227,11 +224,12 @@ body {
         padding: 2px 14px;
         list-style: none;
         line-height: 18px;
+        color: var(--top-bar-color);
     }
     > li {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--top-bar-bg);
     }
-    a { text-decoration: none; color: #666; }
+    a { text-decoration: none; color: var(--top-bar-color); }
     ul>li:last-child { border: none }
     ins {
         font-size: 12px;
@@ -245,10 +243,11 @@ body {
     }
     ul { display: none; }
 
+    .logger-error { color: red; }
     .key.fn { font-style: italic; color: #8959a8; }
     .len { color: #999; font-style: normal; user-select: none; }
-    .type-string { color: green }
-    .type-number { color: blue }
-    .type-boolean { color: blue }
-    .type-null, .type-undefined { color: gray }
+    .type-string { color: #cfc067 }
+    .type-number { color: #9584f7 }
+    .type-boolean { color: #9584f7 }
+    .type-null, .type-undefined { color: #7f7f7f }
 }

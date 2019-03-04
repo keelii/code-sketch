@@ -162,9 +162,10 @@ class Log extends Component {
     }
     render() {
         return (
-            <ul id="Logger" className="logs"></ul>
+            <ul id="Logger" className="logs">{/* test */}</ul>
         )
     }
+    componentDidMount() {}
     shouldComponentUpdate() {
         return false
     }
@@ -295,19 +296,19 @@ class App extends Component {
     }
     setActiveEditor(editor, e) {
         if (editor.name !== this.state.activeEditor.name) {
-            let activeResult = { ...this.state.results[0] }
-            if (e && e.metaKey) {
-                if (editor.name === 'markup') {
-                    activeResult = { ...this.state.results[0] }
-                }
-                if (editor.name === 'script') {
-                    activeResult = { ...this.state.results[1] }
-                }
-            }
+            // let activeResult = { ...this.state.results[0] }
+            // if (e && e.metaKey) {
+            //     if (editor.name === 'markup') {
+            //         activeResult = { ...this.state.results[0] }
+            //     }
+            //     if (editor.name === 'script') {
+            //         activeResult = { ...this.state.results[1] }
+            //     }
+            // }
 
             this.setState({
                 activeEditor: {...editor},
-                activeResult
+                // activeResult
             })
         }
     }
@@ -401,16 +402,31 @@ class App extends Component {
         }
 
         if (true) {
-            html = insertBabel(html)
+            let babelPath = _query.app_path
+                ? `file://${decodeURIComponent(_query.app_path)}/lib/babel.min.js`
+                : 'https://unpkg.com/@babel/standalone@7.3.4/babel.min.js'
+
+            let content = ''
+            if (window.require) {
+                let fs = window.require('fs')
+                content = fs.readFileSync(`${decodeURIComponent(_query.app_path)}/lib/babel.min.js`)
+            }
+            
+            html = insertBabel(html, content)
         }
 
         this.logger.clear()
 
         let doc = this._wv.contentDocument
         if (doc.open) {
-            doc.open()
-            doc.write(html)
-            doc.close()
+            try {
+                doc.open()
+                doc.write(html)
+                doc.close()    
+            } catch (error) {
+                console.log(error)
+            }
+            
         }
 
         // this._wv.executeJavaScript(`
