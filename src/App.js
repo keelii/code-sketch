@@ -171,6 +171,17 @@ class Log extends Component {
     }
 }
 
+class Iframe extends Component {
+    render() {
+        return (
+            <div id="webview"></div>
+        )
+    }
+    shouldComponentUpdate() {
+        return false
+    }
+}
+
 class App extends Component {
     static defaultProps = {
         fontSize: 14
@@ -269,8 +280,7 @@ class App extends Component {
                     </SplitPanelHead>
                     <SplitPanelContent>
                         <div className="panel-wrap" style={{display:activeResult.name === 'view'?'flex':'none'}}>
-                            {/* <webview id="webview" src={this.getWebViewUrl()} nodeintegration={true}></webview> */}
-                            <iframe src={this.getWebViewUrl()} frameBorder="0" id="webview"></iframe>
+                            <Iframe />
                         </div>
                         <div className="panel-wrap" style={{display:activeResult.name === 'console'?'flex':'none'}}>
                             <Log />
@@ -354,22 +364,6 @@ class App extends Component {
     get HOME_PATH() {
         return decodeURIComponent(window._query.home_dir || '')
     }
-    getWebViewUrl() {
-        if (window.require) {
-            const url = window.require('url')
-            const path = window.require('path')
-            return url.format({
-                slashes: true,
-                protocol: 'file:',
-                pathname: path.resolve(this.APP_PATH, 'webview.html')
-            })
-        } else {
-            return ''
-        }
-    }
-    initWebview() {
-        this._wv = document.getElementById('webview')
-    }
     update() {
         if (!window.editor_markup) return
 
@@ -402,14 +396,12 @@ class App extends Component {
         }
 
         if (true) {
-            let babelPath = _query.app_path
-                ? `file://${decodeURIComponent(_query.app_path)}/lib/babel.min.js`
-                : 'https://unpkg.com/@babel/standalone@7.3.4/babel.min.js'
-
             let content = ''
             if (window.require) {
                 let fs = window.require('fs')
-                content = fs.readFileSync(`${decodeURIComponent(_query.app_path)}/lib/babel.min.js`)
+                content = fs.readFileSync(`${decodeURIComponent(_query.app_path)}/lib/babel.min.js`, 'utf8')
+            } else {
+                content = 'https://unpkg.com/@babel/standalone@7.3.4/babel.min.js'
             }
             
             html = insertBabel(html, content)
@@ -417,7 +409,8 @@ class App extends Component {
 
         this.logger.clear()
 
-        let doc = this._wv.contentDocument
+        let doc = this.getIframe().contentDocument
+
         if (doc.open) {
             try {
                 doc.open()
@@ -426,16 +419,17 @@ class App extends Component {
             } catch (error) {
                 console.log(error)
             }
-            
         }
+    }
+    getIframe() {
+        const webview = document.getElementById('webview')
+        let oldIframe = webview.childNodes[0]
 
-        // this._wv.executeJavaScript(`
-        //     document.open("text/html", "replace");
-        //     document.write(\`${html}\`);
-        //     document.close();
-        // `, (res) => {
-        //     if (res) console.log(res)
-        // })
+        if (oldIframe) oldIframe.parentElement.removeChild(oldIframe)
+
+        let iframe = document.createElement('iframe')
+        webview.appendChild(iframe)
+        return iframe
     }
     processUpdate(name) {
         // if (name !== 'script' && this.state.autoReload) {
@@ -610,8 +604,6 @@ class App extends Component {
     componentDidMount() {
         this.listenIPC()
         this.bindKeyMap()
-
-        this.initWebview()
 
         setTimeout(() => {
             this.update()

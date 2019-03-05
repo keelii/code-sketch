@@ -23,21 +23,21 @@
 
 ## Screenshoots
 
-*Light*
+*Light-theme*
 
-![code-sketch-light](https://img12.360buyimg.com/devfe/jfs/t1/25013/12/6600/699222/5c60e177Eaa6b11ef/8e048dfc445a5834.png)
+![code-sketch-light](https://code-sketch.com/image/code-sketch-light-theme.png)
 
-*Dark*
+*Dark-theme*
 
-![code-sketch-dark](https://img30.360buyimg.com/devfe/jfs/t1/9264/1/14270/728930/5c60e18eEa4aa0b4d/851e8b0a3986fa07.png)
+![code-sketch-dark](https://code-sketch.com/image/code-sketch-dark-theme.png)
 
-*Log*
+*Error Log*
 
-![log](https://img14.360buyimg.com/devfe/jfs/t1/10964/8/12355/207834/5c78b82bE1d941df7/1f2554935f6e05d3.png)
+![log](https://code-sketch.com/image/code-sketch-error-log.png)
 
-*Error*
+*Console Log*
 
-![error](https://img30.360buyimg.com/devfe/jfs/t1/10288/1/12327/208125/5c78b84eE1b589374/60a7c579dec26d1c.png)
+![error](https://code-sketch.com/image/code-sketch-console-log.png)
 
 ## Dev
 

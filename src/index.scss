@@ -50,6 +50,15 @@ body {
   height: 100%;
 }
 
+#webview {
+  display: flex;
+  flex-grow: 1;
+  iframe {
+    flex-grow: 1;
+    border: none;
+  }
+}
+
 .cell {
   .CodeMirror {
     font-size: var(--editor-font-size);
@@ -68,9 +77,6 @@ body {
       padding-right: 0;
     }
   }
-}
-#webview {
-  flex-grow: 1;
 }
 .toolbar {
   display: none;

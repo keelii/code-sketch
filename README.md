@@ -23,21 +23,22 @@
 
 ## 截图
 
-*浅色*
+*浅色主题*
 
-![code-sketch-light](https://img12.360buyimg.com/devfe/jfs/t1/25013/12/6600/699222/5c60e177Eaa6b11ef/8e048dfc445a5834.png)
+![code-sketch-light](https://code-sketch.com/image/code-sketch-light-theme.png)
 
-*深色*
+*深色主题*
 
-![code-sketch-dark](https://img30.360buyimg.com/devfe/jfs/t1/9264/1/14270/728930/5c60e18eEa4aa0b4d/851e8b0a3986fa07.png)
+![code-sketch-dark](https://code-sketch.com/image/code-sketch-dark-theme.png)
 
-*日志*
+*错误日志*
 
-![log](https://img14.360buyimg.com/devfe/jfs/t1/10964/8/12355/207834/5c78b82bE1d941df7/1f2554935f6e05d3.png)
+![log](https://code-sketch.com/image/code-sketch-error-log.png)
 
-*错误*
+*控制台日志*
 
-![error](https://img30.360buyimg.com/devfe/jfs/t1/10288/1/12327/208125/5c78b84eE1b589374/60a7c579dec26d1c.png)
+![error](https://code-sketch.com/image/code-sketch-console-log.png)
+
 
 ## 开发
 

@@ -52,7 +52,10 @@ function removeHooks(html, type) {
 exports.removeHooks = removeHooks
 
 function insertBabel(html, content) {
-    const babeljs = `<script>${content}</script>`
+    const babeljs = content.startsWith('http')
+        ? `<script src="${content}"></script>`
+        : `<script>${content}</script>`
+
     const customeJS = `
     <script name="console-proxy">
         (function(root) {
