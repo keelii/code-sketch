@@ -8,6 +8,7 @@
     "start": "./node_modules/.bin/parcel index.html -p 2044",
     "parcel": "./node_modules/.bin/parcel build --no-cache --no-content-hash --no-source-maps --public-url=. index.html",
     "build": "rm -rf dist release .cache && yarn parcel",
+    "build:web": "rm -rf dist release .cache && yarn parcel -d ../web.code-sketch.com",
     "dist": "electron-builder --mac",
     "electron": "electron .",
     "release": "yarn build && yarn dist"
