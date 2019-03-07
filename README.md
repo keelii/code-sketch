@@ -1,7 +1,9 @@
 [中文](README.md) | [English](README-en.md)
 # 代码画板 Code Sketch
 
-> 最初写代码的地方...
+> 一个你最初写代码的地方...
+
+视频演示：[Youtube](https://youtu.be/zmwb8ZvPR1U) | [Bilibili](https://www.bilibili.com/video/av45565947/)
 
 ## 功能
 
