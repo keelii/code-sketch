@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "description": "First place where the code was written...",
   "main": "main.js",
+  "author": "keelii",
   "scripts": {
     "dev": "ELECTRON_START_URL=http://localhost:2044 yarn electron",
     "start": "./node_modules/.bin/parcel index.html -p 2044",
@@ -24,7 +25,6 @@
       "main.js",
       "src/*.js",
       "donation.html",
-      "webview.html",
       "dist/**",
       "lib/**",
       "img/**",
@@ -55,8 +55,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-split": "^2.0.4",
-    "react-splitter-layout": "^3.0.1",
-    "sublime-command-palette": "^0.0.11"
+    "@code-sketch/sublime-command-palette": "^0.0.12"
   },
   "dependencies": {
     "@babel/core": "^7.2.2",

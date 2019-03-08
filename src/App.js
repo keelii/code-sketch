@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 
 // import CommandPalette from '../../sublime-command-palette/dist/index'
-import CommandPalette from 'sublime-command-palette'
-import '../node_modules/sublime-command-palette/dist/index.css'
+import CommandPalette from '@code-sketch/sublime-command-palette'
+import '@code-sketch/sublime-command-palette/dist/index.css'
 
 import CodeMirror from 'codemirror'
 import '../node_modules/codemirror/lib/codemirror.css'

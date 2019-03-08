@@ -687,6 +687,11 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
+"@code-sketch/sublime-command-palette@^0.0.12":
+  version "0.0.12"
+  resolved "https://registry.npmjs.org/@code-sketch/sublime-command-palette/-/sublime-command-palette-0.0.12.tgz#61eefe343c7af5b174947dd966bfbf6a50ff8575"
+  integrity sha512-6gZtomAH2a+hFgOeqc8xYT///GpNkpP6IA6z8ca6BhcN2tLGUVZ+EzT8UCWR/0ABrMrfhMcZ3X58c3/NRy5wpw==
+
 "@emmetio/abbreviation@^0.6.0":
   version "0.6.6"
   resolved "http://registry.npm.taobao.org/@emmetio/abbreviation/download/@emmetio/abbreviation-0.6.6.tgz#03cd13983c22315d2b65fc66a99ad8c3fa44a8ce"
@@ -5523,11 +5528,6 @@ react-split@^2.0.4:
     prop-types "^15.5.7"
     split.js "^1.5.9"
 
-react-splitter-layout@^3.0.1:
-  version "3.0.1"
-  resolved "http://registry.npm.taobao.org/react-splitter-layout/download/react-splitter-layout-3.0.1.tgz#c2e00e69b35d240ab7a44f395d41803c5f4b70ef"
-  integrity sha1-wuAOabNdJAq3pE85XUGAPF9LcO8=
-
 react@^16.7.0:
   version "16.7.0"
   resolved "http://registry.npm.taobao.org/react/download/react-16.7.0.tgz#b674ec396b0a5715873b350446f7ea0802ab6381"
@@ -6326,11 +6326,6 @@ stylehacks@^4.0.0:
     browserslist "^4.0.0"
     postcss "^7.0.0"
     postcss-selector-parser "^3.0.0"
-
-sublime-command-palette@^0.0.11:
-  version "0.0.11"
-  resolved "https://registry.npmjs.org/sublime-command-palette/-/sublime-command-palette-0.0.11.tgz#b54d5dd3193200eb2e6e187872477608e1ea32c0"
-  integrity sha512-r17bhdyQMkPfeCHh1NXlPam4VVzNA+8h9ypQRSOdZg1R2Nb25aU3BDTfSjcYrLQ3prNYT/kFhhzqpoUUWASbbw==
 
 sumchecker@^2.0.2:
   version "2.0.2"
