@@ -369,15 +369,6 @@ class App extends Component {
 
         let html = window.editor_markup.getValue()
 
-        if (!/^<\/?(html|head|body)>/.test(html)) {
-            html = `<!DOCTYPE html>
-            <html>
-            <head>
-                <title></title>
-            </head>
-            <body>${html}</body>
-            </html>`
-        }
         if (window.editor_style) {
             let data = window.editor_style.getValue()
             let res = {}
@@ -410,7 +401,6 @@ class App extends Component {
         this.logger.clear()
 
         let doc = this.getIframe().contentDocument
-
         if (doc.open) {
             try {
                 doc.open()
