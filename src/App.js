@@ -595,9 +595,9 @@ class App extends Component {
         this.listenIPC()
         this.bindKeyMap()
 
-        setTimeout(() => {
-            this.update()
-        }, 500)
+        // setTimeout(() => {
+        //     this.update()
+        // }, 500)
 
         this.logger = window.logger = new Logger(
             document.querySelector('#Logger')
