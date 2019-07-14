@@ -58,7 +58,9 @@ body {
     border: none;
   }
 }
-
+svg {
+  vertical-align: middle;
+}
 .cell {
   .CodeMirror {
     font-size: var(--editor-font-size);
@@ -89,8 +91,16 @@ body {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  // background: green;
-  // padding: 10px 0;
+  &.vertical {
+    flex-direction: column;
+    .gutter {
+      border-left: 0;
+      border-right: 0;
+      cursor: row-resize;
+      border-top: 1px solid var(--gutter-border);
+      border-bottom: 1px solid var(--gutter-border);
+    }
+  }
   .cell {
     // background: #fff;
     display: flex;
@@ -108,9 +118,6 @@ body {
         background: var(--top-bar-active-tag-bg);
         overflow-y: scroll;
         flex-grow: 1;
-        .CodeMirror {
-          min-height: calc(100vh - 30px)
-        }
       }
     }
   }

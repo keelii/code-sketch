@@ -53,8 +53,6 @@ const sass = require('sass')
 import emmetSnippet from './emmet'
 import {Logger} from './Logger'
 
-// import '../img/donate-alipay.png'
-// import '../img/donate-wechat.png'
 import './index.scss'
 
 emmet(CodeMirror)
@@ -76,10 +74,30 @@ const titleCase = (txt) => {
     return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()
 }
 
+const LayoutToggler = ({direction, handleClick}) => {
+    return (
+        <div onClick={() => handleClick()}>
+            {direction === 'horizontal' ?
+                (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+                        <g> <path d="M6 42h4v-4H6v4zm4-28H6v4h4v-4zM6 34h4v-4H6v4zm8 8h4v-4h-4v4zM10 6H6v4h4V6zm8 0h-4v4h4V6zm16 0h-4v4h4V6zm-8 8h-4v4h4v-4zm0-8h-4v4h4V6zm12 28h4v-4h-4v4zm-16 8h4v-4h-4v4zM6 26h36v-4H6v4zM38 6v4h4V6h-4zm0 12h4v-4h-4v4zM22 34h4v-4h-4v4zm8 8h4v-4h-4v4zm8 0h4v-4h-4v4z"></path> </g>
+                    </svg>
+                )
+                :
+                (
+                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+                        <g> <path d="M6 18h4v-4H6v4zm0-8h4V6H6v4zm8 32h4v-4h-4v4zm0-16h4v-4h-4v4zm-8 0h4v-4H6v4zm0 16h4v-4H6v4zm0-8h4v-4H6v4zm8-24h4V6h-4v4zm24 24h4v-4h-4v4zm-16 8h4V6h-4v36zm16 0h4v-4h-4v4zm0-16h4v-4h-4v4zm0-20v4h4V6h-4zm0 12h4v-4h-4v4zm-8-8h4V6h-4v4zm0 32h4v-4h-4v4zm0-16h4v-4h-4v4z"></path> </g>
+                    </svg>
+                )
+            }
+        </div>
+    )
+}
+
 class Editor extends Component {
     render() {
         return (
-            <div id={this.props.name}></div>
+            <div id={this.props.name} style={this.props.sizes}></div>
         )
     }
 
@@ -151,8 +169,8 @@ class Editor extends Component {
         this.initEditor()
         this.editor.focus()
     }
-    shouldComponentUpdate() {
-        return false
+    shouldComponentUpdate(nextProps) {
+        return JSON.stringify(nextProps.sizes) != JSON.stringify(this.props.sizes)
     }
 }
 
@@ -162,7 +180,7 @@ class Log extends Component {
     }
     render() {
         return (
-            <ul id="Logger" className="logs">{/* test */}</ul>
+            <ul id="Logger" className="logs" style={this.props.sizes}>{/* test */}</ul>
         )
     }
     componentDidMount() {}
@@ -174,7 +192,7 @@ class Log extends Component {
 class Iframe extends Component {
     render() {
         return (
-            <div id="webview"></div>
+            <div id="webview" style={this.props.sizes}></div>
         )
     }
     shouldComponentUpdate() {
@@ -184,7 +202,8 @@ class Iframe extends Component {
 
 class App extends Component {
     static defaultProps = {
-        fontSize: 14
+        fontSize: 14,
+        sizes: [50, 50],
     }
     constructor(props) {
         super(props)
@@ -199,9 +218,7 @@ class App extends Component {
             { name: 'console', keyMap: '5', title: '⌘ + 5' },
         ]
 
-        // const gutters = ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
         const gutters = []
-        // const gutters = ["CodeMirror-foldgutter"]
 
         this.state = {
             zenMode: true,
@@ -209,25 +226,75 @@ class App extends Component {
             autoReload: true,
             activeEditor: { ...editors[0] },
             activeResult: { ...results[0] },
+            direction: 'horizontal',
+            // direction: 'vertical',
             logs: [],
-            sizes: [50, 50],
+            collapsed: 0,
+            gutterSize: 5,
+            sizes: [...props.sizes],
             editors, results, gutters
         }
+
+        this.onDragEnd = this.onDragEnd.bind(this)
+        this.resizeTimer = null
+    }
+    get bHeight() { return document.body.offsetHeight }
+    get tHeight() { return document.querySelector('.top-bar').offsetHeight }
+    get bWidth() { return document.body.offsetWidth }
+    get tWidth() { return document.querySelector('.top-bar').offsetWidth }
+    getSizes(type) {
+        if (!document.querySelector('.top-bar')) return {}
+
+        let [markup, result] = this.state.sizes
+        if (this.state.direction === 'vertical') {
+            if (type == 'markup') {
+                return {
+                    width: `${this.bWidth}px`,
+                    height: `${this.bHeight * (markup / 100) - this.tHeight}px`
+                }
+            }
+            if (type == 'result') {
+                return {
+                    width: `${this.bWidth}px`,
+                    height: `${this.bHeight * (result / 100) - this.tHeight}px`
+                }
+            }
+        }
+        if (this.state.direction === 'horizontal') {
+            if (type == 'markup') {
+                return {
+                    height: `${this.bHeight - this.tHeight}px`,
+                    width: `${this.bWidth * (markup / 100)}px`
+                }
+            }
+            if (type == 'result') {
+                return {
+                    height: `${this.bHeight - this.tHeight}px`,
+                    width: `${this.bWidth * (result / 100)}px`
+                }
+            }
+        }
+    }
+    onDragEnd(size) {
+        this.setState(size)
     }
     render() {
         const { name, title } = this.state.activeEditor
         const activeResult = this.state.activeResult
         const autoReload = this.state.autoReload
+        const direction = this.state.direction
+        const gutterSize = this.state.gutterSize
 
         return [
             <style key="style" key={'style'}>{`
                 body { --editor-font-size: ${this.state.fontSize}px; }
             `}</style>,
-            <Split key="body" className="container"
-                gutterSize={5}
+            <Split key="body" className={"container " + direction}
+                gutterSize={gutterSize}
                 onDragEnd={this.handleDragGutter.bind(this)}
                 minSize={0}
-                sizes={this.state.sizes}
+                direction={direction}
+                sizes={this.props.sizes}
             >
                 <SplitPanel name={name} title={title}>
                     <SplitPanelHead className={'btns ' + (this.state.zenMode ? '':'toggle')}>
@@ -242,6 +309,9 @@ class App extends Component {
                             </ul>
                         </div>
                         <SplitPanelAction>
+                            <LayoutToggler 
+                                handleClick={this.handleLayoutToggerClick.bind(this)} 
+                                direction={direction} />
                             {/*
                             <label htmlFor={`auto-reload-${name}`}>
                             <input type="checkbox"
@@ -259,6 +329,7 @@ class App extends Component {
                                     onDrop={this.onDrop.bind(this)}
                                     zenMode={this.state.zenMode}
                                     gutters={this.state.gutters}
+                                    sizes={this.getSizes('markup')}
                                     contentUpdate={this.processUpdate.bind(this)} />
                             </div>
                         )}
@@ -280,10 +351,10 @@ class App extends Component {
                     </SplitPanelHead>
                     <SplitPanelContent>
                         <div className="panel-wrap" style={{display:activeResult.name === 'view'?'flex':'none'}}>
-                            <Iframe />
+                            <Iframe sizes={this.getSizes('result')} />
                         </div>
                         <div className="panel-wrap" style={{display:activeResult.name === 'console'?'flex':'none'}}>
-                            <Log />
+                            <Log sizes={this.getSizes('result')} />
                         </div>
                     </SplitPanelContent>
                 </SplitPanel>
@@ -297,6 +368,15 @@ class App extends Component {
                 data={[ [], [], [] ]}
             />
         ]
+    }
+    handleLayoutToggerClick() {
+        document.querySelectorAll('.cell,.gutter').forEach(el => el.style = '')
+        this.setState({
+            sizes: [50, 50],
+            direction: this.state.direction === 'horizontal' 
+                ? 'vertical' 
+                : 'horizontal'
+        }, () => this.resizePanel())
     }
     handleDragGutter(sizes) {
         this.setState({ sizes: [...sizes] })
@@ -433,7 +513,7 @@ class App extends Component {
         })
     }
     handleDbClick(e) {
-        if (e.target && e.target.className.includes('gutter')) {
+        if (e.target && e.target.classList && e.target.classList.contains('gutter')) {
             this.equalGutterWidth()
         }
     }
@@ -588,12 +668,32 @@ class App extends Component {
         this.ipc.on('SAVE_TO', this.saveDialog.bind(this))
         this.ipc.on('OS_THEME_CHANGE', this.handleChangeTheme.bind(this))
     }
+    resizePanel() {
+        clearTimeout(this.resizeTimer)
+        this.resizeTimer = setTimeout(() => {
+            this.setState({ 
+                sizes: this.state.sizes
+            })
+        }, 300)
+    }
+    bindResize() {
+        window.addEventListener('resize', this.resizePanel.bind(this))
+    }
+    unbindResize() {
+        window.removeEventListener('resize', this.resizePanel.bind(this))
+    }
     componentWillUnmount() {
         this.unbindKeyMap()
+        this.unbindResize()
     }
     componentDidMount() {
         this.listenIPC()
         this.bindKeyMap()
+        this.bindResize()
+
+        this.setState({ sizes: this.state.sizes })
+
+        // this.resizePanel()
 
         // setTimeout(() => {
         //     this.update()
