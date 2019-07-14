@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="First place where the code was written...">
+
+    <title>Code Sketch</title>
+    
+    <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#79c4da">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#79c4da">
+    
+    <style>
+    * { margin: 0; padding: 0; }
+    img { max-width: 80%; }
+    figure { 
+        display: block; 	
+    }
+
+    .download { 
+        display: flex; 
+        padding-top: 50px;
+        padding-bottom: 100px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .download a {
+        width: 300px;
+        text-align: center;
+        color: #79c4da;
+        text-decoration: none;
+        padding: 10px 30px;
+        /* background: #79c4da; */
+        border: 1px solid #79c4da;
+        border-radius: 3px;
+        margin-bottom: 10px;
+    }
+    .download a:not(.unavailable):focus {
+        box-shadow: 0 0 0 0.2em rgba(121, 196, 218, 0.2);
+    }
+    .download .unavailable {
+        cursor: default;
+        border-color: #ccc;
+        color: #ccc;
+    }
+    </style>
+    <link rel="stylesheet" href="./css/gallery.theme.css" />
+    <link rel="stylesheet" href="./css/gallery.min.css" />
+
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-79264835-5"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-79264835-5');
+    </script>
+
+</head>
+<body>
+    
+    <div class="gallery items-4">
+        <div id="item-1" class="control-operator"></div>
+        <div id="item-2" class="control-operator"></div>
+        <div id="item-3" class="control-operator"></div>
+        <div id="item-4" class="control-operator"></div>
+    
+        <figure class="item">
+            <img src="./image/code-sketch-light-theme.png" alt="code-sketch-light-theme" />
+        </figure>
+    
+        <figure class="item">
+            <img src="./image/code-sketch-dark-theme.png" alt="code-sketch-dark-theme" />
+        </figure>
+    
+        <figure class="item">
+            <img src="./image/code-sketch-error-log.png" alt="code-sketch-error-log" />
+        </figure>
+
+        <figure class="item">
+            <img src="./image/code-sketch-console-log.png" alt="code-sketch-console-log" />
+        </figure>
+    
+        <div class="controls">
+            <a href="#item-1" class="control-button">•</a>
+            <a href="#item-2" class="control-button">•</a>
+            <a href="#item-3" class="control-button">•</a>
+            <a href="#item-4" class="control-button">•</a>
+        </div>
+    </div>
+
+    <div class="download">
+        <a href="https://github.com/keelii/code-sketch/releases/download/v0.0.4/Code.Sketch-0.0.4.dmg">macOS (.dmg)</a>
+        <a href="//web.code-sketch.com/">Web</a>
+        <a class="unavailable" href="#none">Window (.exe)</a>
+        <a class="unavailable" href="#none">Linux (.zip)</a>
+        
+        <a class="github-button" href="https://github.com/keelii/code-sketch" data-size="large" aria-label="Star keelii/code-sketch on GitHub">Star</a>
+    </div>
+
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+</html>
