@@ -175,7 +175,10 @@ function createWindow({ width = 1000, height = 600, x, y}, callback) {
     const osTheme = getSystemTheme()
 
     // Create the browser window.
-    mainWindow = new BrowserWindow({ 
+    mainWindow = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true
+        },
         width, height, x, y
     })
 
