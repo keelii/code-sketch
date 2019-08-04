@@ -5,7 +5,8 @@
 
 > 一个你最初写代码的地方...
 
-视频演示：[Youtube](https://youtu.be/gIxrk8iXACE) | [Bilibili](https://www.bilibili.com/video/av45565947/)
+视频演示：[Youtube](https://youtu.be/gIxrk8iXACE) | [Bilibili](https://www.bilibili.com/video/av45565947/)， 
+下载：[release](https://github.com/keelii/code-sketch/releases/)
 
 ## 功能
 

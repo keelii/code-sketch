@@ -1,7 +1,12 @@
 [中文](README.md) | [English](README-en.md)
+
+![https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=148413&theme=dark](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=148413&theme=dark)
+
 # Code Sketch
 
 > First place where the code was written...
+
+[Video demo](https://youtu.be/gIxrk8iXACE),  [Download](https://github.com/keelii/code-sketch/releases/)
 
 ## Features
 
