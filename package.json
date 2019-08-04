@@ -1,6 +1,6 @@
 {
   "name": "Code-Sketch",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "First place where the code was written...",
   "main": "main.js",
   "author": "keelii",
@@ -50,8 +50,8 @@
     "@code-sketch/sublime-command-palette": "^0.0.12",
     "@emmetio/codemirror-plugin": "^0.5.4",
     "codemirror": "^5.42.2",
-    "electron": "^5.0.6",
-    "electron-builder": "^20.38.5",
+    "electron": "^6.0.0",
+    "electron-builder": "^21.2.0",
     "parcel-bundler": "^1.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
