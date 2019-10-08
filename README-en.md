@@ -1,6 +1,6 @@
 [中文](README.md) | [English](README-en.md)
 
-![https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=148413&theme=dark](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=148413&theme=dark)
+[![https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=148413&theme=dark](https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=148413&theme=dark)](https://www.producthunt.com/posts/code-sketch)
 
 # Code Sketch
 
