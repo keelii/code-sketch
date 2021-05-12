@@ -49,7 +49,7 @@
   "devDependencies": {
     "@code-sketch/sublime-command-palette": "^0.0.12",
     "@emmetio/codemirror-plugin": "^0.5.4",
-    "codemirror": "^5.42.2",
+    "codemirror": "^5.58.2",
     "electron": "^6.0.0",
     "electron-builder": "^21.2.0",
     "parcel-bundler": "^1.11.0",
